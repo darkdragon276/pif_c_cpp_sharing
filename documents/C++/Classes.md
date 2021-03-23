@@ -6,7 +6,13 @@
 
 - Classes and objects are the two main aspects of object-oriented programming.
 
-  <img src="C:\Users\ad\AppData\Roaming\Typora\typora-user-images\image-20210323104214268.png" alt="image-20210323104214268" style="zoom: 50%;" />
+  <img src="C:\Users\ad\AppData\Roaming\Typora\typora-user-images\image-20210323205727166.png" alt="image-20210323205727166" style="zoom: 50%;" />
+  
+  
+  
+  
+  
+  
   
   
   
