@@ -1,6 +1,6 @@
-# 																													**Classes**
+# 																																					**Classes**
 
-### 																		OOP
+### 																															OOP
 
 - OOP stands for Object-Oriented Programming.
 
@@ -15,7 +15,7 @@
 
 ---
 
-### 																									Classes Syntax
+### 																																													Classes Syntax
 
 - Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
 
@@ -27,7 +27,7 @@
 
 ---
 
-  ### 																Class Methods
+  ### 																																						Class Methods
 
   Methods are **functions** that belongs to the class.
 
@@ -84,8 +84,7 @@
 
 ---
 
-										### 										Abstraction(Tính trừu tượng)
-
+### 																										Abstraction(Tính trừu tượng)
 
 
 <img src="https://cdn.journaldev.com/wp-content/uploads/2019/09/data-abstraction.png" alt="What is Abstraction in OOPS? - JournalDev" style="zoom: 67%;" /><
@@ -105,7 +104,7 @@
 
 ​	
 
-### 																 										Encapsulation(Tính đóng gói) 
+### 																 																									Encapsulation(Tính đóng gói) 
 
 * The meaning of **Encapsulation**, is to make sure that "sensitive" data is hidden from users.
 
@@ -152,7 +151,7 @@
 
 ---
 
-### 																											Inheritance
+### 																																																Inheritance
 
 * We group the "inheritance concept" into two categories:
 
@@ -187,7 +186,7 @@
 
 ---
 
-### 																Polymorphism
+### 																																					Polymorphism
 
 * Polymorphism means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
 
@@ -271,7 +270,7 @@
 
 ---
 
-### 											Identifiers
+### 																																Identifiers
 
 - Names can contain letters, digits and underscores
 - Names must begin with a letter or an underscore (_)
