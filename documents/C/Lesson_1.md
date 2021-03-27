@@ -1,130 +1,142 @@
-### Quy chuẩn đặt tên thông dụng
+### Reccomend of namming
 
-* Hằng số phải viết in hoa. 
+```c
+#define UART_TXD_PINNUM (10) // all caps for constant
 
-  ```c
-  #define UART_TXD_PINNUM (10)
-  ```
+void robot_response(int32_t id_command, uint8_t *message); // name of variable and function write in lower case. Multiword is linked by "_"
 
-* Tên biến, tên hàm viết thường.
+typedef struct {
+ ....  
+} foo_tst; // _t => typedef and _st => struct
+struct {
+ ....
+} foo_st; // _st => struct
+typedef enum {
+ ....   
+} foo_e; // _e => enum
+```
 
-  ```c
-  void robot_response(int id_command, char *message);
-  ```
+### Data type in C
 
-* Nếu tên gồm nhiều từ thì cách nhau bởi dấu "_".
+​    Have 3 main groups:
 
-* Thêm "_t" nếu là biến typedef.
+* Integer: Integer variable is used to store _binary-number_ (convert from _decimal-number_).
 
-  ```c
-  typedef struct {
-      double scale;
-      double bias;
-      double under_limit;
-      double upper_limit;
-  } servo_channel_calib_t;
-  ```
+  ![](.\soures\1_1.png)
 
-* Thêm "_e" nếu là tên enum.
+* Floating point numbers:
 
-* Thêm "_st" nếu là tên struct.
-
-### Kiểu dữ liệu trong C
-
-​    Bao gồm 3 nhóm chính:
-
-* Kiểu số nguyên:
-
-  Số thập phân được lưu dưới dạng nhị phân tương ứng. Các phép toán được thực hiện như số bình thường.
-
-  ![](D:\workspace\git\pif_c_cpp_sharing\documents\C\soures\1.1.png)
-
-* Kiểu số thực dấu chấm động
-
-  Được lưu trongbộ nhớ dưới dạng:
-
-  ![](D:\workspace\git\pif_c_cpp_sharing\documents\C\soures\1.2.png)
+  ![](.\soures\1_2.png)
 
   
 
-  ![](D:\workspace\git\pif_c_cpp_sharing\documents\C\soures\1.3.png)
+  ![](.\soures\1_3.png)
 
-* Kiểu chuỗi
+* String type:
 
-  Có bản chất là kiểu int kích thước 1 byte, mỗi giá trị số nguyên tương ứng với một ký tự trong bảng mã ASCII.
+  Base on array of chars (uint8_t), and each element store integer value which stand for each character in ASCII table.
+  
+  ![](.\soures\1_4.png)
+  
+  [Decimal ASCII Chart]: www.asciichart.com
 
-### Phép gán (assignment)
+### Assignment
 
-Phép gán khác kiểu được chia làm 2 loại
+Include 2 types:
 
 #### 		Implicit assignment
 
-Phép gán do chương trình ngầm thực hiện. Trong trường hợp gán biến size nhỏ cho biến size lớn. Hoặc từ int sang float. Do code C có quy định sẵn cho trường hợp này.
+When you assign variable in the same group of type. The assignment from integer variable to floating point also _implicit_. Because in this case, compiller has specific function to define it.
 
-```c
-int a = 10;
-float b;
-b = a; //Implicit assignment
-```
+Moreover assignment from bigger-size to smaller-size data type also _implicit_, so it is possible for _implicit assignment_ to lose information.
 
 #### 		Explicit assignment
 
-Phép gán thông qua việc _ép kiểu_ của người viết. Dùng trong trường hợp gán biến size lớn cho biến size nhỏ hơn. Hoặc từ các kiểu dữ liệu khác nhau.
+When you assign variables with type casting,  from different group of data types. And it is user define.
+
+[Type Conversion in C]: https://www.geeksforgeeks.org/type-conversion-c/
+
+
 
 ```c
-int a = 65;
-float b = 9.5;
-char c;
-c = (char)a; //Explicit assignment
-a = (int)b;  //Explicit assignment
+int <== unsigned int // Implicit assignment
+long long <= int // Implicit assignment
+double <== float // Implicit assignment
+float <== int // Implicit assignment
+    
+int a;
+float b;
+char c = (char)(a + 10); // Explicit assignment
+a = (int)b;  // Explicit assignment
 ```
 
-### Declare và Define
-
-**Declare** một biến hay một hàm là chỉ cung cấp thông tin về tên, kiểu dữ liệu cho compiller. Mà không cho biết giá trị cụ thể:
+**Quiz:** 
 
 ```c
-int add(int arg1, int arg2);
+int32_t int_var = 2012345678; // max of this type is 2147483647
+float flt_var = int_var;
 ```
 
-**Define** sẽ cung cấp rõ giá trị cho biến hay mô tả cụ thể cho hàm. Define có thể thực hiện cùng lúc hoặc sau khi declare.
+Does the program have error? And does the value of _flt_var_ equal to _int_var_?
+
+**Answer:**
+
+**No**, it doesn't. And the value of _flt_var_ is **not equal** to _int_var_. Because of feature of floating point. The integer number stored in **32 bit** memory must convert to **23 bit** (size of mantissa) in float type. In this case, **2012345678** take more than **23 bit** in integer memory . So the data after convert will be lose a bit and difference from value in _int_var_.
+
+### Declare and Define
+
+**Declare **of a variable is for informing to the compiler the following information: name of the variable, type of value it holds and the initial value if any it takes. i.e.,
+
+**Define** of a variable says where the variable gets stored. i.e., memory for the variable is allocated during the definition of the variable. _Declare_ and _define_ can take places at the same time
 
 ```c
+unsigned int foo; // Declare a variable
+foo = 999; // Define a variable
+
+int add(int arg1, int arg2); // Declare a function
 int add(int arg1, int arg2) {
 return arg1 + arg2;
-}
+}// Define a function
 ```
 
 ### Number literal
 
-Phần giá trị trong lệnh define một biến, được chương trình ngầm hiểu theo một số kiểu nhất định.  Những kiểu đó gọi là _non-suffix_, vd: int, double,...
+_The values_ you give to variable when defining, are implicit in some standard type .  This is called  _**non-suffix**_, ex: int, double,...
 
 ```c
-int int_var = 8; // 8 thuộc kiểu int
-float pi = 3.14 // 3.14 thuộc kiểu double
+int int_var = 8; // 8 ==> int
+float pi = 3.14 // 3.14 ==> double
 ```
 
-Nên nếu chúng ta muốn thay đổi kiểu của các giá trị đó, ta phải thêm suffix:
+So, if you want define those _values_ with another data type, you must add **suffix**:
 
 ```c
-long a = 3210123456789L;
-unsigned long b = 1234567890123456789ul; //ul hay lu đều được.
-float pi = 3.14f;
-// suffix không phân biệt chữ hoa, chữ thường
+long long a = 3210123456789LL; // LL ==> long long
+unsigned long b = 1234567890123456789ul; //ul or lu are all accepted ==>unsigned long
+float pi = 3.14f; // f ==> float
+// suffix does not case sensitve. F = f, ul = UL
 ```
 
-### Signed và unsigned number
+### Signed and unsigned number
 
-Xem đoạn code sau, và trả lời câu hỏi
+This is how the signed number is located in memory: _two's complement_
+
+![](.\soures\2_1.png)
+
+**Quiz:**
 
 ```c
 unsigned int unsign_var = -1;
-printf("%u", unsign_var); //Giá trị mà biến unsign_var in ra là gì??
+printf("%u", unsign_var); 
 ```
 
-Ta cần biết cách chương trình lưu một số âm: _dạng bù 2_
+What is the result was print?
 
-![](D:\workspace\git\pif_c_cpp_sharing\documents\C\soures\2.1.png)
+_**Answer:**_
 
-Và vì biến **unsign_var** là biến không dấu, nên nó sẽ hiểu số đó theo cách chuyển cơ số thông thường. Vì vậy giá trị in ra màn hình sẽ là **4.294.967.295**. số lớn nhất của kiểu _unsigned int_.
+Negative numbers are stored as _two's complement_:
+
+![](.\soures\2_2.png)
+
+Besides, **unsign_var** is unsigned variable, it just understand data like unsigned number.  So the answer is 2^32-1 = **4.294.967.295**. -maximum number of _unsigned int_.
 
