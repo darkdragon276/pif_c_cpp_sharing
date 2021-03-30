@@ -21,24 +21,29 @@ typedef enum {
 ​    Have 3 main groups:
 
 * Integer: Integer variable is used to store _binary-number_ (convert from _decimal-number_).
-
-  ![](.\assets\image\C\1_1.png)
+    ![](./assets/image/1_1.png)
 
 * Floating point numbers:
 
-  ![](.\assets\image\C\1_2.png)
+  ![](./assets/image/1_2.png)
 
   
 
-  ![](.\assets\image\C\1_3.png)
+* Floating point numbers:
 
+  ![](./assets/image/1_2.png)
+
+  
+
+  ![](./assets/image/1_3.png)
 * String type:
 
   Base on array of chars (uint8_t), and each element store integer value which stand for each character in ASCII table.
   
-  ![](.\assets\image\C\1_4.png)
-  
-  [Decimal ASCII Chart]: www.asciichart.com
+
+  ![](./assets/image/1_4.png)
+
+[Decimal ASCII Chart]: www.asciichart.com
 
 ### Assignment
 
@@ -121,7 +126,7 @@ float pi = 3.14f; // f ==> float
 
 This is how the signed number is located in memory: _two's complement_
 
-![](.\assets\image\C\2_1.png)
+![](./assets/image/2_1.png)
 
 **Quiz:**
 
@@ -136,7 +141,7 @@ _**Answer:**_
 
 Negative numbers are stored as _two's complement_:
 
-![](.\assets\image\C\2_2.png)
+![](./assets/image/2_2.png)
 
 Besides, **unsign_var** is unsigned variable, it just understand data like unsigned number.  So the answer is 2^32-1 = **4.294.967.295**. -maximum number of _unsigned int_.
 
