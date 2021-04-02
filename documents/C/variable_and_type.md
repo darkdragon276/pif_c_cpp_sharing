@@ -141,7 +141,7 @@ float pi = 3.14f; // f ==> float
 
 This is how the signed number is located in memory: _two's complement_
 
-![](./assets/images/2_1.png)
+![](./assets/images/1_6.png)
 
 **Quiz:**
 
@@ -156,7 +156,7 @@ _**Answer:**_
 
 Negative numbers are stored as _two's complement_:
 
-![](./assets/images/2_2.png)
+![](./assets/images/1_7.png)
 
 Besides, _var_u8_ is **unsigned** variable, it just understand data like unsigned number.  So the answer is 2^8-1 = 0xFF -maximum number of _uint8_t_.
 
