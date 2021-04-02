@@ -18,7 +18,7 @@ Content
 
 Content
 
-![](./C/assets/images/example.png)
+![](./C/assets/images/0_1.png)
 
 ---
 
