@@ -24,5 +24,5 @@ Content
 
 ### Link reference:
 
-[Example link]: example.com	" "
+[Example link]: example.com	"Example link "
 
