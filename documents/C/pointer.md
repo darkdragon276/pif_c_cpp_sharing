@@ -69,7 +69,7 @@ printf("%d", *ptr); // It will print out garbage value, not equal 12345.
 
 ```
 
-#### Out of scope
+#### Out of scope { }
 
 ```c
 #include <stdio.h>
@@ -186,8 +186,8 @@ int main() {
     rect1* ts_ptr; 
     //do not declare struct pointer like this: 'rectangle_ts ts_ptr;'
     
-    ts_ptr->height = 30; // using -> to call to element in struct by pointer
-    (*ts_ptr).width = 40;  // beside that, we can use this operation
+    (*ts_ptr).width = 40; // call to element in struct by pointer
+    ts_ptr->height = 30; // beside that, you can using '->'
     
     rect2 = *ts_ptr;
     printf("rectangle height is: %u\n", rect1.height);
@@ -200,7 +200,8 @@ int main() {
 
 ### Links Reference
 
-[Pointers in C and C++]: https://www.geeksforgeeks.org/pointers-in-c-and-c-set-1-introduction-arithmetic-and-array/
-[Dangling, Void , Null and Wild Pointers]: https://www.geeksforgeeks.org/dangling-void-null-wild-pointers/?ref=rp
-[Pointer in C programing]: https://www.guru99.com/c-pointers.html
+**Pointers in C and C++:**[ www.geeksforgeek.org/...](https://www.geeksforgeeks.org/pointers-in-c-and-c-set-1-introduction-arithmetic-and-array/)
 
+**Dangling, Void , Null and Wild Pointers:**[ www.geeksforgeek.org/...](https://www.geeksforgeeks.org/dangling-void-null-wild-pointers/?ref=rp)
+
+**Pointer in C programing:** [ www.guru99.com/...](https://www.guru99.com/c-pointers.html)

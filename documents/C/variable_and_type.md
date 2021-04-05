@@ -164,5 +164,6 @@ Besides, _var_u8_ is **unsigned** variable, it just understand data like unsigne
 
 #### Link Reference
 
-[Data Type in C]: https://www.geeksforgeeks.org/data-types-in-c/
-[Type Conversion in C]: https://www.geeksforgeeks.org/type-conversion-c/
+**Data Type in C:**[ www.geeksforgeeks.org/...](https://www.geeksforgeeks.org/data-types-in-c/)
+
+**Type Conversion in C:**[ www.geeksforgeek.org/...](https://www.geeksforgeeks.org/type-conversion-c/)
