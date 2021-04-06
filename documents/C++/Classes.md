@@ -18,51 +18,49 @@
 #													Classes Syntax
 
 > ```c++
-> car.h
-> 
+> //car.h
 > class Car {        // The class
->  private:        // Access specifier
->     string brand;  // Attribute
->     string model;  // Attribute
->     int year;      // Attribute
->     Car(string x, string y, int z); // Constructor declaration
->     ~Car();//Destructor declaration
->     static void staticMethod(){
->     void unstaticMethod;
+> private:        // Access specifier
+>       string brand;  // Attribute
+>         string model;  // Attribute
+>         int year;      // Attribute
+>         Car(string x, string y, int z); // Constructor declaration
+>         ~Car();//Destructor declaration
+>         static void staticMethod(){
+>         void unstaticMethod;
 >    };
-> 
+>    
 > // Constructor definition outside the class
 > Car::Car(string x, string y, int z) {
->   brand = x;
->      model = y;
->      year = z;
+>     brand = x;
+>       model = y;
+>        year = z;
 >    }
-> 
+>    
 > 
 > ```
 > 
->```c++
-> car.cpp
->     
+> ```c++
+>//car.cpp
 > #include <iostream>
-> #include "car.h"
+>     #include "car.h"
 > using namespace std;
->     
 > 
-> int main() {
->  // Create Car objects and call the constructor with different values
->      Car carObj1("BMW", "X5", 1999);
+> 
+>     int main() {
+>     // Create Car objects and call the constructor with different values
+>     Car carObj1("BMW", "X5", 1999);
 >      Car carObj2("Ford", "Mustang", 1969);
->      Car::staticMethod();
->      Car.unstaticMethod();
+>        Car::staticMethod();
+>        Car.unstaticMethod();
+>    
+>        // Print values
+>     cout << carObj1.brand << " " << carObj1.model << " " << carObj1.year << "\n";
+>        cout << carObj2.brand << " " << carObj2.model << " " << carObj2.year << "\n";
+>        return 0;
+>    }
+>    ```
 > 
->      // Print values
->      cout << carObj1.brand << " " << carObj1.model << " " << carObj1.year << "\n";
->      cout << carObj2.brand << " " << carObj2.model << " " << carObj2.year << "\n";
->      return 0;
-> }
-> ```
->
 
 - Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
 
@@ -160,6 +158,8 @@
 
 ---
 
+
+
 ### 																																																Inheritance
 
 * Inheritance is the ability to build new classes on top of existing ones. The main benefit of inheritance is code reuse. If you want to create a class that’s slightly different from an existing one, there’s no need to duplicate code. Instead, you extend the existing class and put the extra functionality into a resulting
@@ -171,7 +171,7 @@
 
   * **derived class** (child) - the class that inherits from another class
 
-    ![Inheritance](./assets/inheritance.png)
+    ![Inheritance](./assets/Inheritance.png)
 
     
 
@@ -180,7 +180,7 @@
   > ``` c++
   > // Base class 
   > class Vehicle {
-  >   	public:
+  >   public:
   >             string brand = "Ford";
   >             void honk() {
   >               cout << "Grusss, gruss! \n" ;
