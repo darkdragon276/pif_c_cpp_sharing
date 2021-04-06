@@ -2,9 +2,11 @@
 
 ### Introduction
 
-<img src="./assets/images/2_1.png" style="zoom: 67%;" />
+<img src="./assets/images/2_1.png" style="zoom: 100%;" />
 
-Pointer is the special data type in C. It store address of another variables.  Address of variable is the instruction for computer access to that variable. 
+Pointer is the special data type in C. It store address of another variables.  Address of variable is the instruction for computer access to that variable. Each 1 byte in memory has one address.
+
+<img src="./assets/images/2_2.png" style="zoom:67%;" />
 
 ```c
 syntax to declare:  datatype* pointer_name;
@@ -34,14 +36,14 @@ char *s_ptr;
 s_ptr = str; // or s_ptr = str[0];
 printf("First character is:%c\n",*s_ptr);
 
-s_ptr = s_ptr+1;
+s_ptr = s_ptr + 1;
 printf("Second character is:%c\n",*s_ptr);
 printf("Printing all the characters in a string\n");
 
 s_ptr = str;  //reset the pointer
 
 for(int i=0; i<strlen(str); i++) {
-	printf("%c",*s_ptr);
+	printf("%c", *s_ptr);
 	s_ptr++;
 }
 ```
@@ -163,7 +165,7 @@ int main() {
 	float f32 = 4.74f;
     function((void*)str, STRING);
     function((void*)s32, INT);
-    function((void*)f32, FLOAT); // errorrrrrrrrrrrrrrrrrrr
+    function((void*)f32, FLOAT); // error cannot convert to a pointer type
     return 0;
 }
 ```
