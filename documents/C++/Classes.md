@@ -63,9 +63,6 @@
 > }
 > ```
 >
-> 
-
-
 
 - Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
 
