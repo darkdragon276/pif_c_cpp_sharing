@@ -1,6 +1,6 @@
 ## Variable and Type
 
-### Reccomend of namming
+### Recommend of naming
 
 ```c
 #include "stdint.h"
@@ -39,7 +39,7 @@ typedef enum {
 
   Compare to integer number:
 
-  ![](./assets/images/1_3.png)
+  <img src="./assets/images/1_3.png" style="zoom:85%;" />
 
   Type range:
 

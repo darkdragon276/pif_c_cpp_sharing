@@ -24,4 +24,4 @@ Content
 
 ### Link reference:
 
-**Example link: **[example.com](https://www.example.com)
+**Example link:**[example.com](https://www.example.com)

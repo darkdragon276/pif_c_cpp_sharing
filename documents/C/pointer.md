@@ -2,11 +2,16 @@
 
 ### Introduction
 
+```c
+uint16_t a = 1;
+uint16_t* ptr = &a;
+```
+
 <img src="./assets/images/2_1.png" style="zoom: 100%;" />
 
-Pointer is the special data type in C. It store address of another variables.  Address of variable is the instruction for computer access to that variable. Each 1 byte in memory has one address.
+Pointer is the special data type in C. It store address of another variables.  The address of variable is the memory location where data of variable is stored in. Each 1 byte in memory has one address.
 
-<img src="./assets/images/2_2.png" style="zoom:67%;" />
+Size of pointer depend on CPU architecture. In **ARM 32-bit**, size of pointer is 4 bytes. 
 
 ```c
 syntax to declare:  datatype* pointer_name;
@@ -21,14 +26,15 @@ uint8_t* ptr1;
 uint8_t foo = 99;
 
 ptr1 = &foo; // &foo is get the address of foo
-printf("%d", ptr1); //  This funtion print out address of foo
-printf("%d", *ptr1); // *ptr1 is get the value of foo. It's will print out "99"
+printf("%d\n", ptr1); //  This funtion print out address of foo
+printf("%d\n", *ptr1); // *ptr1 is get the value of foo. 
+                      //It's will print out "99"
 
-*ptr1++;
-printf("%d", foo); // value of foo is 100 now.
+*ptr1 = *ptr1 + 1;
+printf("%d\n", foo); // value of foo is 100 now.
 ```
 
-Using pointer with string is more interesting:
+With pointer, we have additional way to handle string:
 
 ```c
 char str[]="Hello World";
@@ -48,24 +54,24 @@ for(int i=0; i<strlen(str); i++) {
 }
 ```
 
-Size of pointer depend on CPU architecture. In **ARM 32-bit**, size of pointer is 4 bytes. 
-
 **Quiz:** But why pointer of different type has only one size?
 
-**Answer:** Because pointer only store address of variable, and that address has integer form. So different size of value have one size of address. 
+**Answer:** Because pointer only store address of variable, and that address has unsigned integer form. So different size of value have one size of address. 
 
 ---
 
 ### Dangling Pointer
 
-A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. There are **three** different ways where Pointer acts as dangling pointer
+A pointer pointing to a memory location that has been deleted (or freed) is called dangling pointer. There are **two** different ways where pointer acts as dangling pointer
 
 #### De-allocation of memory
 
 ```c
-int* ptr = (int*)malloc(sizeof(int)); // Get one area with int-size in heap memory. 									//And save that address to ptr
+int* ptr = (int*)malloc(sizeof(int)); 
+// Get one area with int-size in heap memory
+// And save that address to ptr
 *ptr = 12345;
-free(ptr); // delete that memory area. ptr becomes dangling now
+free(ptr); // Delete that memory area. ptr becomes dangling now
 
 printf("%d", *ptr); // It will print out garbage value, not equal 12345.
 
@@ -75,11 +81,26 @@ printf("%d", *ptr); // It will print out garbage value, not equal 12345.
 
 ```c
 #include <stdio.h>
+int main() {
+    int* ptr;
+    {				// This is inside of scope
+        int a = 9;  // This is inside of scope
+        ptr = &a;   // This is inside of scope
+    }
+    printf("%d", *ptr); // Here ptr is dangling pointer
+	return 0;
+}
+```
+
+
+
+```c
+#include <stdio.h>
 int *ptr;
-void funct(int arg1, int arg2){     //this is inside of scope
-       int sum = arg1+arg2;         //this is inside of scope
-       ptr = &sum;            //this is inside of scope
-   } 
+void funct(int arg1, int arg2){// This is inside of scope
+    int sum = arg1+arg2;   // This is inside of scope
+    ptr = &sum;            // This is inside of scope
+}
 int main()
 {
     int a=45, b=54;
@@ -92,15 +113,9 @@ int main()
 }
 ```
 
-In order to fix this problem, we can define sum as static variable: 
-
-```c
-static int sum = arg1+arg2;
-```
-
 ---
 
-### NULL Pointer and Wild Pointer
+### NUL Pointer and Wild Pointer
 
 NULL Pointer is a pointer which is pointing to nothing. In case, if we don’t have address to be assigned to a pointer, then we can simply use NULL.
 
@@ -113,11 +128,26 @@ char a = 'A'
 c_ptr = &a; // c_ptr is not a wild pointer now
 ```
 
+**Quiz:** what is the result was print?
+
+```c
+#include <stdio.h>
+int* ptr0;
+int main() {
+    int * ptr1;
+    printf("%d\n", ptr0);
+    printf("%d\n", ptr1);
+	return 0;
+}
+```
+
+**Answer:** Although prt0 and ptr1 both are wild pointer, ptr0 is global variable, ptr1 is local variable. Global pointer have default value: 0. It will print out "0".  However, local pointer doesn't have, and will print out garbage value.
+
 ---
 
 ### Void Pointer
 
-Void pointer is a specific pointer type – void * – a pointer that points to some data location in storage, which doesn’t have any specific type. Basically the type of data that it points to is can be any. And must be mention (type-casting) when define that pointer or when we access to value in void pointer. 
+Void pointer is a specific pointer type – void * – a pointer that points to some data locating in memory, which doesn’t have any specific type. And must be explicit assign specific type to void* and otherwise.
 
 ```c
 void* v_ptr;
@@ -145,17 +175,17 @@ void function(void* ptr, type_e type) {
     float* f_ptr = NULL;
     char* s_ptr = NULL;
     switch(type) {
-        case 0:
-          i_ptr = (int*)ptr;
-          break;
-        case 1:
-          f_ptr = (float*)ptr;
-          break;
-        case 2:
-          s_ptr = (char*)ptr;
-          break;
+        case INT:
+        	i_ptr = (int*)ptr;
+          	break;
+        case FLOAT:
+        	f_ptr = (float*)ptr;
+        	break;
+        case STRING:
+        	s_ptr = (char*)ptr;
+        	break;
     default:
-        break;
+    	break;
     }
     // do some thing with those _ptr
 }
@@ -163,39 +193,36 @@ int main() {
     char str[] = "Hello World";
 	int s32 = 9999;
 	float f32 = 4.74f;
-    function((void*)str, STRING);
-    function((void*)s32, INT);
-    function((void*)f32, FLOAT); // error cannot convert to a pointer type
+    function((void*)&str, STRING);
+    function((void*)&s32, INT);
+    function((void*)&f32, FLOAT);  
     return 0;
 }
 ```
 
 ---
 
-### Using pointer with struct
+### Using pointer with struct 
 
 ```c
 #include <stdio.h>
 
-typedef struct {
+struct rectangle_st{
 	unsigned int width;
     unsigned int height;
-}rectangle_ts
+}rect1;
     
 int main() {
-    rectangle_ts rect1;
-    rectangle_ts rect2;
-    rect1* ts_ptr; 
-    //do not declare struct pointer like this: 'rectangle_ts ts_ptr;'
+    struct rectangle_st* st_ptr;
+	st_ptr = &rect1;
     
-    (*ts_ptr).width = 40; // call to element in struct by pointer
-    ts_ptr->height = 30; // beside that, you can using '->'
+    (*st_ptr).width = 40; // call to element in struct by pointer
+    st_ptr->height = 30; // beside that, you can using '->'
     
-    rect2 = *ts_ptr;
-    printf("rectangle height is: %u\n", rect1.height);
-    // It will print out: "30"
     printf("rectangle width is: %u\n", rect1.width);
     // It will print out: "40"
+    printf("rectangle height is: %u\n", rect1.height);
+    // It will print out: "30"
     return 0;
 }
 ```
