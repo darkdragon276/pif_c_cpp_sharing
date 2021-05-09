@@ -26,11 +26,11 @@ uint8_t* ptr1;
 uint8_t foo = 99;
 
 ptr1 = &foo; // &foo is get the address of foo
-printf("%d\n", ptr1);  //  This funtion print out address of foo
+printf("%d\n", ptr1); //  This funtion print out address of foo
 printf("%d\n", *ptr1); // *ptr1 is get the value of foo. 
-                       // It's will print out "99"
+                      //It's will print out "99"
 
-(*ptr1)++; // *ptr1 = *ptr1 + 1;
+(*ptr1)++; //*ptr1 = *ptr1 + 1;
 printf("%d\n", foo); // value of foo is 100 now.
 ```
 
@@ -42,7 +42,7 @@ char *s_ptr;
 s_ptr = str; // or s_ptr = str[0];
 printf("First character is:%c\n",*s_ptr);
 
-s_ptr++;
+s_ptr++; //s_ptr = s_ptr + 1;
 printf("Second character is:%c\n",*s_ptr);
 printf("Printing all the characters in a string\n");
 
@@ -117,9 +117,9 @@ int main()
 
 ### NULL Pointer and Wild Pointer
 
-NULL Pointer is a pointer pointing to nothing. In case we don’t have address to initialize, then we can simply use NULL.
+NULL Pointer is a pointer pointing to nothing. In case we don’t have value to initialize this pointer, we can simply use NULL.
 
-Wild Pointer is a pointer declared but not initialized to anything.
+Wild Pointer is a pointer declared but not initialized.
 
 ```c
 int* i_ptr = NULL; // NULL Pointer
@@ -141,13 +141,13 @@ int main() {
 }
 ```
 
-**Answer:** Both `ptr0` ptr0 and ptr1  are wild pointer, but ptr0 is global variable, ptr1 is local variable. Global pointer have default initial value: 0 but local pointer doesn't have (garbage value still exist).
+**Answer:**  Both `prt0` and `ptr1` are wild pointer but `ptr0` is global variable while `ptr1` is local variable. Global pointer have default initial value is `0` but local pointer don't initialize (garbage value still exist).
 
 ---
 
 ### Void Pointer
 
-Void pointer is a specific pointer type – `void*` – a pointer that points to polytype data (doesn’t have any specific type). And must be explicit assign specific type to void* and otherwise.
+Void pointer is a specific pointer type – `void *` – a pointer that points to polytype data (doesn’t have any specific type). And must be explicit assign specific type to `void*` and otherwise.
 
 ```c
 void* v_ptr;
@@ -214,10 +214,9 @@ struct rectangle_st{
     
 int main() {
     struct rectangle_st* st_ptr;
-    st_ptr = &rect1;
+	st_ptr = &rect1;
     
-    // call to element in struct by pointer
-    st_ptr->height = 30; // you can using '->' the same with: (*st_ptr).height
+    st_ptr->height = 30; // you can using '->' the same with (*st_ptr).width = 40;
     
     printf("rectangle width is: %u\n", rect1.width);
     // It will print out: "40"
@@ -235,13 +234,4 @@ int main() {
 
 **Pointer in C programing:** [ www.guru99.com/...](https://www.guru99.com/c-pointers.html)
 
----
-
-## Pointer (continue)
-
-## Pointer to pointer
-
-<img src="./assets/images/2_1.png" style="zoom: 100%;" />
-
-
-
+https://godbolt.org/
