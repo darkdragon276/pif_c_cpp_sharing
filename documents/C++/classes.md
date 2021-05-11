@@ -125,7 +125,7 @@
   >        // Private attribute
   >         int salary;
   >    public:
-  >     void setSalary(int s) {
+  >      void setSalary(int s) {
   >           salary = s;
   >         }
   >         int getSalary() {
@@ -184,7 +184,7 @@
   >       public:
   >        string brand = "Ford";
   >        void honk() {
-  >        cout << "Grusss, gruss! \n" ;
+  >        	cout << "Grusss, gruss! \n" ;
   >        }
   > };
   > // Derived class
