@@ -58,7 +58,6 @@
 >         return 0;
 >    }
 >    ```
->    
 
 - Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
 
@@ -121,13 +120,12 @@
   > ```c++
   > #include <iostream>
   > using namespace std;
-  > 
   > class Employee {
-  >   private:
-  >         // Private attribute
+  > private:
+  >        // Private attribute
   >         int salary;
-  > public:
-  >        void setSalary(int s) {
+  >    public:
+  >     void setSalary(int s) {
   >           salary = s;
   >         }
   >         int getSalary() {
@@ -140,10 +138,10 @@
   >         cout << myObj.getSalary();
   >         return 0;
   >    }
-  > ```
+  >    ```
   > 
-  >- The `salary` attribute is `private`, which has restricted access.
-  > - The public `setSalary()` method takes a parameter (`s`) and assigns it to the `salary` attribute (salary = s).
+  > - The `salary` attribute is `private`, which has restricted access.
+  >- The public `setSalary()` method takes a parameter (`s`) and assigns it to the `salary` attribute (salary = s).
   > - The public `getSalary()` method returns the value of the private `salary` attribute.
 
 
@@ -273,7 +271,6 @@
 >        return 0;
 > }
 > ```
->
 
 ---
 
