@@ -1,4 +1,4 @@
-# 																																																**Classes** in C++
+## 																																																Classes in C++
 
 ### 																															OOP
 
@@ -15,7 +15,7 @@
 
 ---
 
-#													Classes Syntax
+##													Classes Syntax
 
 > ```c++
 > //car.h
@@ -60,7 +60,6 @@
 >        return 0;
 >    }
 >    ```
-> 
 
 - Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
 
@@ -77,7 +76,7 @@
 
 ----
 
-# 									Pillars of OOP
+## 									Pillars of OOP
 
 *  Object-oriented programming is based on four pillars, concepts that differentiate it from other programming paradigms.  
 
@@ -283,7 +282,5 @@
 - Names cannot contain whitespaces or special characters like !, #, %, etc.
 - Reserved words (like C++ keywords, such as `int`) cannot be used as names
 
-
-
-
+---
 
