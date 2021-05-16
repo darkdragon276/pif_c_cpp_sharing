@@ -162,7 +162,7 @@ union register_un {
 // write data into reg1
 reg1.data.bit1 = 1;	// reg1.value |= 0x01<<1
 reg1.data.bit3 = 1; // reg1.value |= 0x01<<3
-..gán thanh ghi hệ thống............................
+// we can assign reg1 to system register in register programing
 // read data from reg1
 printf("%d", reg1.value); // reg1 = 00001010 = 10;
 // It will print out: 10
