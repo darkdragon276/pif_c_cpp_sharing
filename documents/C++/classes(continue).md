@@ -27,10 +27,6 @@ cout<<"value of u32"<<r_u32;
 // else, u32 still = 123
 ```
 
-References are generally much safer to use than pointers (since there’s no risk of indirection through a null pointer). However, they are also a bit more limited in functionality accordingly.
-
-If a given task can be solved with either a reference or a pointer, the reference should generally be preferred. Pointers should only be used in situations where references are not sufficient (such as dynamically allocating memory).
-
 ---
 
 ### New vs Malloc
