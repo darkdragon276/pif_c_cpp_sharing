@@ -33,11 +33,9 @@ typedef enum {
 * Integer: Integer variable is used to store _binary-number_ (convert from _decimal-number_).
     ![](./assets/images/1_1.png)
 
-* Floating point numbers:
+* Floating point numbers, compare to integer number:
 
-  ![](./assets/images/1_2.png)
-
-  Compare to integer number:
+  
 
   <img src="./assets/images/1_3.png" style="zoom:85%;" />
 
@@ -101,7 +99,7 @@ Does the program have error? And does the value of _var_f32_ equal to _var_s32_?
 
 ### Declare and Define
 
-**Declare **of a variable is for informing to the compiler the following information: name of the variable, type of value it holds and the initial value if any it takes.
+**Declare ** of a variable is for informing to the compiler the following information: name of the variable, type of value it holds and the initial value if any it takes.
 
 **Define** of a variable says where the variable gets stored. That is memory for the variable is allocated during the definition of the variable. _Declare_ and _define_ can take places at the same time.
 
