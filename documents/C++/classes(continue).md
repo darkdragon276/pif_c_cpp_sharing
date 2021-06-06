@@ -2,49 +2,81 @@
 
 ### Reference vs Pointer
 
-A reference is a type of variable that acts as an alias (unique) to another object or value.
+A `reference` is value that acts as an alias (unique) to another object or variable.
 
-Reference seem like a pointer. But they have some difference:
+In C++, we have Reference variable (have `reference`'s feature).
 
-* Reference can not be NULL.
-* Reference  must be initialized when declared.
-* Reference can not be reassigned.
-* Pointer can have multiple levels, but reference can't.
-* Pointer have void*, but reference doesn't have.
+`Reference` seem like a `pointer`. But they have some difference:
+
+* `Reference` can not be `NULL`.
+
+* `Reference`  must be initialized when `declared`.
+
+* `Reference` can not be `reassigned`.
+
+* `Pointer` can have `multiple levels`, but reference can't.
+
+* `Pointer` have `void*`, but reference doesn't have.
+
+  |                              | Reference | Pointer |
+  | ---------------------------- | :-------: | :-----: |
+  | Value can be `NULL`          |     x     |    v    |
+  | Declared but not initialize  |     x     |    v    |
+  | Reassigned                   |     x     |    v    |
+  | Multiple level               |     x     |    v    |
+  | Using void*                  |     x     |    v    |
+  | Avoid risk of memory         |     v     |    x    |
+  | Using in function is simpler |     v     |    x    |
 
 ```C++
-uint32_t u32 = 123; 
-uint32_t &r_u32 = u32; // References must be initialed when declared
-// The ampersand (&) doesn't mean “address of”, it means “reference to”.
+#include <iostream>
+using namespace std;
+class foo {
+public:
+	uint32_t u32 = 123; 
+	uint32_t &r_u32 = u32; // References must be initialed when declared
+	// The ampersand (&) doesn't mean “address of”, it means “reference to”.
+    
+	void func(uint32_t &out_ref, uint32_t in_a) {
+		out_ref = in_a*2;
+	}
+};
 
-uint32_t another_u32 = 999;
-r_u32 = another_u32; // References can not be reassigned 
-// this line actually assigns the value of another to u32 (1)
-
-// Let's check it out
-cout<<"value of u32"<<r_u32;	
-// If (1) right, value of u32 = 999
-// else, u32 still = 123
+int main() {
+	uint32_t another_u32 = 999;
+	foo test;
+    // References can not be reassigned 
+	test.r_u32 = another_u32;
+    // this line actually assigns the value of another to u32
+    
+    test.r_u32++;
+	cout<<"value of u32: "<<test.u32<< endl;
+    cout<<"value of r_u32: "<<test.r_u32<< endl;
+    cout<<"value of another_u32: "<<another_u32<< endl;
+    
+	test.func(test.r_u32, 100);
+	cout<<"value of u32: "<<test.u32<< endl;
+	return 0;
+}
 ```
 
 ---
 
-### New vs Malloc
+### New, delete vs malloc, free
 
-**new** is an specific operator in C++.  **malloc()** is a C library function, can be use in C++.
+`new` is an specific `operator` in C++.  `malloc()` is a C library `function`, can be use in C++.
 
-Both **new** and **maloc()** are used  to allocate the dynamically memory in heap. But when **new** is used, it call the constructor of a class, whereas **malloc()** does not.
+Both `new` and `malloc()` are used  to allocate the dynamically memory in` heap`. But when `new` is used, it call the `constructor` of a class, whereas `malloc()` does not.
 
 ---
 
-### Delete vs Free
+### 
 
-**delete** is a keyword in C++. **free()** is a C library function that can also be used in C++.
+`delete` is a keyword in C++. `free()` is a C library `function` that can also be used in C++.
 
-**delete** frees memory create by **new** and calls destructor of a class. But **free()** only frees memory create by **malloc() **
+`delete` frees memory create by `new` and calls `destructor` of a class. But `free()` only frees memory create by `malloc()`.
 
 ```C++
-
 #include <iostream>
 using namespace std;
  
@@ -62,6 +94,11 @@ public:
 		cout << "Destructor was called!"
 			 << endl;
 	}
+	void method() {
+        A c;
+        cout << "Object c was created using \"A c\""
+             << endl;
+    }
 };
  
 int main()
@@ -76,12 +113,18 @@ int main()
 	A* b = (A*)malloc(sizeof(A));
 	cout << "Object b was created using malloc()"
 		 << endl;
+    // quiz line
     free(b);
     cout << "Object b was deleted using free()"
  		 << endl;
+    
 	return 0;
 }
 ```
+
+**Quiz:** When add "b->method();" in `quiz line`, what is result was print?
+
+**Answer:** when run `method`, `object c` will created. And after `method` ending, memory of `object c` will be frees and call `detrucstor`.
 
 ---
 
