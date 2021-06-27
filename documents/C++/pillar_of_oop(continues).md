@@ -202,4 +202,59 @@ int main()
 
 Inheriting from a `base class` means we don’t have to redefine the information from the `base class` in our `derived classes`. We automatically receive the member `method` and `attribute` of the `base class` through `inheritance`, and then simply add the additional `method` and `attribute` we want. It means that if we ever update or modify the base class, all of our derived classes will automatically inherit the changes.
 
-Aggregation is where one object just contains a reference to another. The container doesn’t control the life cycle of the component. The component can exist without the container and can be linked to several another containers at the same time.
+`Aggregation` is a relationship where one `object` just contains a `reference` to another. The `Container` doesn’t control the life cycle of the `Element`. The `Element` can exist without the `Container` and can be linked to several another `containers` at the same time.
+
+![](.\assets\3_5.png)
+
+**Example:**
+
+```c++
+#include<iostream>
+#include<string>
+using namespace std;
+class address{
+    public:
+        string addrs;
+        address(string addrs_i)
+        {  
+            addrs =  addrs_i;
+        }
+};
+class student{
+        address *adrs_r; // use reference to create aggregation relation
+    public:
+        int id; 
+        string name;
+        student( int i, string nm, address*ad)
+        { 
+            id = i;   
+            name = nm; 
+            adrs_r = ad;
+        }
+        void display()
+        { 
+            cout<<id<< "  "<<name<< "  live in: "<<adrs_r->addrs
+                <<endl;
+        }
+};
+int main()
+{  
+    address a1= address("Distric 10, Ho Chi Minh city");    
+    student s1 = student(101, "Foo", &a1);    
+    s1.display();    
+    return 0;
+}
+```
+
+---
+
+### Links references:
+
+**Function Overloading in C++: **[www.geeksforgeeks.org/...](https://www.geeksforgeeks.org/function-overloading-c/)
+
+**Override Keyword in C++: **[www.geeksforgeeks.org/...](https://www.geeksforgeeks.org/override-keyword-c/)
+
+**Inheritance in C++: ** [www.geeksforgeeks.org/...](https://www.geeksforgeeks.org/inheritance-in-c/)
+
+**Aggregation in C++: ** [www.learncpp.com/...](https://www.learncpp.com/cpp-tutorial/aggregation/)
+
