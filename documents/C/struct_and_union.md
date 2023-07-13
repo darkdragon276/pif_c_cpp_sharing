@@ -2,7 +2,7 @@
 
 ### Struct
 
-Struct is user-define data type in C that allows to combining standard data types.
+Struct is container in C that allows to combining standard data types.
 
 Defining and using a struct:
 
@@ -31,7 +31,7 @@ int main() {
 
 Union is a special data type in C that allows storing different data types in the same memory location. 
 
-To define a union, you must use the **union** statement in the same way as you did while defining a struct.
+To define a union, you must use the **union** statement in the same way as struct.
 
 ```c
 union union_type {
@@ -44,13 +44,13 @@ union_name1.a = 99;
 union_name2.a = union_name1.a * 2;
 ```
 
-The difference between struct and union is how them align data field in memory.
+The difference between struct and union is **data alignment**.
 
 ---
 
 ### Struct alignment and Union alignment
 
-Struct align data in alternate next to other in some space in memory . Pick from top field to bottom. Size of space depend on biggest size of field in that struct. If vacancy in space can't fit next data field, compiler will allocate new space next to them. And that vacancy still wasn't used.
+Struct align data in serial. Pick from top field to bottom. Size of cell depend on the biggest field. In alignment, if cell's vacancy can't fit next data field, compiler will unused it and allocate new cell next.
 
 ![](./assets/images/3_1.png)
 
@@ -71,7 +71,7 @@ struct foo_st {
 } st_var;
 ```
 
-Union just locate all field in one space whose size equal to biggest size field:
+Union just locate all field in one cell whose size equal to biggest field:
 
 ![](./assets/images/3_2.png)
 
@@ -90,7 +90,7 @@ union foo_un {
 
 ### Bit field
 
-In C, we can specify size (in bits) of field of structure and union. It can be use when we need small size field, smaller than size of standard data type. 
+In C, we can shorten field's size (in bits) of structure and union.
 
 ```c
 struct date_st {
@@ -112,7 +112,7 @@ struct foo_st {
     uint8_t u8_a;
     uint8_t u8_b;
     char c;
-    int holes :12; // It is useless now, 
+    uint8_t hole[hole_size]; // It is useless now, 
     //but may be useful in the future.
 } st_var;
 ```
@@ -160,23 +160,23 @@ union register_un {
 } reg1;
 
 // write data into reg1
-reg1.data.bit1 = 1;
-reg1.data.bit3 = 1;
-
+reg1.data.bit1 = 1;	// reg1.value |= 0x01<<1
+reg1.data.bit3 = 1; // reg1.value |= 0x01<<3
+// we can assign reg1 to system register in register programing
 // read data from reg1
-printf("%d", reg1.value); // reg1 = 00001010 = 11;
-// It will print out: 11
+printf("%d", reg1.value); // reg1 = 00001010 = 10;
+// It will print out: 10
 ```
 
 ---
 
 ### Typedef Struct
 
-As you know, when define struct variable we need firstly typing "struct":
+As you know, when define struct variable we need firstly typing "struct". We can using typedef to reduce that syntax.
 
 ```c
 struct struct_type var_name;
-// we can using typedef to reduce that syntax
+// shorten syntax, easy for reuse
 typedef struct {
     unsigned float width;
     unsigned float height;

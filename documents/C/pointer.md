@@ -30,7 +30,7 @@ printf("%d\n", ptr1); //  This funtion print out address of foo
 printf("%d\n", *ptr1); // *ptr1 is get the value of foo. 
                       //It's will print out "99"
 
-*ptr1 = *ptr1 + 1;
+(*ptr1)++; //*ptr1 = *ptr1 + 1;
 printf("%d\n", foo); // value of foo is 100 now.
 ```
 
@@ -42,7 +42,7 @@ char *s_ptr;
 s_ptr = str; // or s_ptr = str[0];
 printf("First character is:%c\n",*s_ptr);
 
-s_ptr = s_ptr + 1;
+s_ptr++; //s_ptr = s_ptr + 1;
 printf("Second character is:%c\n",*s_ptr);
 printf("Printing all the characters in a string\n");
 
@@ -115,11 +115,11 @@ int main()
 
 ---
 
-### NUL Pointer and Wild Pointer
+### NULL Pointer and Wild Pointer
 
-NULL Pointer is a pointer which is pointing to nothing. In case, if we don’t have address to be assigned to a pointer, then we can simply use NULL.
+NULL Pointer is a pointer pointing to nothing. In case we don’t have value to initialize this pointer, we can simply use NULL.
 
-Wild Pointer is a pointer which has been declare but not been initialized to anything.
+Wild Pointer is a pointer declared but not initialized.
 
 ```c
 int* i_ptr = NULL; // NULL Pointer
@@ -141,13 +141,13 @@ int main() {
 }
 ```
 
-**Answer:** Although prt0 and ptr1 both are wild pointer, ptr0 is global variable, ptr1 is local variable. Global pointer have default value: 0. It will print out "0".  However, local pointer doesn't have, and will print out garbage value.
+**Answer:**  Both `prt0` and `ptr1` are wild pointer but `ptr0` is global variable while `ptr1` is local variable. Global pointer have default initial value is `0` but local pointer don't initialize (garbage value still exist).
 
 ---
 
 ### Void Pointer
 
-Void pointer is a specific pointer type – void * – a pointer that points to some data locating in memory, which doesn’t have any specific type. And must be explicit assign specific type to void* and otherwise.
+Void pointer is a specific pointer type – `void *` – a pointer that points to polytype data (doesn’t have any specific type). And must be explicit assign specific type to `void*` and otherwise.
 
 ```c
 void* v_ptr;
@@ -216,8 +216,7 @@ int main() {
     struct rectangle_st* st_ptr;
 	st_ptr = &rect1;
     
-    (*st_ptr).width = 40; // call to element in struct by pointer
-    st_ptr->height = 30; // beside that, you can using '->'
+    st_ptr->height = 30; // you can using '->' the same with (*st_ptr).width = 40;
     
     printf("rectangle width is: %u\n", rect1.width);
     // It will print out: "40"
@@ -234,3 +233,5 @@ int main() {
 **Dangling, Void , Null and Wild Pointers:**[ www.geeksforgeek.org/...](https://www.geeksforgeeks.org/dangling-void-null-wild-pointers/?ref=rp)
 
 **Pointer in C programing:** [ www.guru99.com/...](https://www.guru99.com/c-pointers.html)
+
+https://godbolt.org/

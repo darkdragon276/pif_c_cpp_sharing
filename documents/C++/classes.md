@@ -1,10 +1,10 @@
-# 																																																**Classes** in C++
+## 																																																Classes in C++
 
 ### 																															OOP
 
-- OOP stands for Object-Oriented Programming.
+- OOP stands for `Object-Oriented Programming`.
 
-- Classes and objects are the two main aspects of object-oriented programming.
+- `Classes` and `objects` are the two main aspects of object-oriented programming.
 
   ​	<img src=".\assets\OOP_diagrams.png" alt="OOP" style="zoom:;"  >
   
@@ -15,7 +15,7 @@
 
 ---
 
-#													Classes Syntax
+##													Classes Syntax
 
 > ```c++
 > //car.h
@@ -60,26 +60,24 @@
 >        return 0;
 >    }
 >    ```
-> 
 
-- Everything in C++ is associated with classes and objects, along with its attributes and methods. Attributes and methods are basically **variables** and **functions** that belongs to the class.
+- Everything in C++ is associated with `classes` and `objects`, along with its `attributes` and `methods`. `Attributes` and `methods` are basically **variables** and **functions** that belongs to the class.
 
-* Declaring Objects: When a class is defined, only the specification for the object is defined; no memory or storage is allocated. To use the data and access functions defined in the class, you need to create objects.
-* There are two ways to define functions that belongs to a class:
+* `Declaring` Objects: When a `class` is `defined`, only the specification for the `object` is `defined`; no memory or storage is allocated. To use the data and `access` functions defined in the `class`, you need to create `objects`.
+* There are two ways to `define functions` that belongs to a `class`:
 
     * Inside class definition
     * Outside class definition
-* Access modifier
-
-    * Public: All the class members declared under the public specifier will be available to everyone.
-    * Private:  The class members declared as *private* can be accessed only by the member functions inside the class.  
-    * Protected:  Is similar to private access modifier in the sense that it can’t be accessed outside of it’s class unless with the help of friend class, the difference is that the class members declared as Protected can be accessed by any subclass(derived class) of that class as well. 
+* `Access modifier`
+    * `Public`: All the class members declared under the public specifier will be `available` to `everyone`.
+    * `Private`:  The class members declared as `private` can be accessed `only` by the member `functions inside the class`.  
+    * `Protected`:  Is similar to private access modifier in the sense that it can’t be accessed `outside` of it’s class unless with the `help of friend class`, the difference is that the class members declared as `Protected` can be accessed by any `subclass` (derived class) of `that class` as well. 
 
 ----
 
-# 									Pillars of OOP
+## 									Pillars of OOP
 
-*  Object-oriented programming is based on four pillars, concepts that differentiate it from other programming paradigms.  
+*  Object-oriented programming is based on `four pillars`, concepts that `differentiate` it from other programming paradigms.  
 
 
 
@@ -91,10 +89,10 @@
 
 ---
 
-### 																										Abstraction(Tính trừu tượng)
+### 																										Abstraction
 
-* Abstraction is one of 4 general characteristics in OOP, it focuses only on the features of the object and hides unnecessary information. It helps you focus more on the features rather than how it is done. 
-* Example: When you go to draw some money at an ATM, you do not care about how the ATM works or the components in the ATM, the only thing that you care about is the drawing feature. In this case, the unnecessary information of the ATM is hidden, which is abstraction.
+* `Abstraction` is one of 4 general characteristics in OOP, it focuses only on the `features` of the object and `hides unnecessary` information. It helps you `focus` more on the features rather than how it is done. 
+* Example: When you go to draw some money at an ATM, you do not care about how the ATM works or the components in the ATM, the only thing that you care about is the drawing feature. In this case, the unnecessary information of the ATM is `hidden`, which is `abstraction`.
 
 ![Abstraction](./assets/Abstraction_ex.png)
 
@@ -104,11 +102,11 @@
 
 ​	
 
-### 																 																									Encapsulation(Tính đóng gói) 
+### 																 																									Encapsulation
 
-* Encapsulation is the ability of an object to hide parts of its state and behaviors from other objects, exposing only a limited interface to the rest of the program  
+* `Encapsulation` is the ability of an `object` to `hide` parts of its state and `behaviors` from `other objects`, exposing only a limited interface to the rest of the program.
 
-* Encapsulation in C++ is a mechanism of wrapping the data(variables) and code acting on the data(methods) together as a single unit. In encapsulation, the variable of a class will be hidden from other class, and can be accessed only through the methods of their current class. 
+* `Encapsulation` in C++ is a mechanism of `wrapping` the data (variables) and code acting on the data(methods) together as a `single unit`. In `encapsulation`, the variable of a class will be `hidden` from other class, and can be accessed `only through` the methods of their `current class`. 
 
   ![ Encapsulation](./assets/Encapsulation_p.png)
 
@@ -145,7 +143,7 @@
 
 
 
-* Data hiding and encapsulation both are the important concept of object oriented programming.
+* `Data hiding` and `encapsulation` both are the important concept of Object-Oriented Programming.
 
 ![Different between Hiding data and Encapsulation](./assets/Encapsulation_di.png)
 
@@ -162,20 +160,19 @@
 
 ### 																																																Inheritance
 
-* Inheritance is the ability to build new classes on top of existing ones. The main benefit of inheritance is code reuse. If you want to create a class that’s slightly different from an existing one, there’s no need to duplicate code. Instead, you extend the existing class and put the extra functionality into a resulting
-  subclass, which inherits fields and methods of the superclass. 
-
+* `Inheritance` is the ability to build new `classes` on top of `existing` ones. The main benefit of `inheritance` is code `reuse`. If you want to create a class that’s slightly different from an existing one, there’s no need to duplicate code. Instead, you `extend` the `existing class` and put the `extra` functionality into a resulting subclass, which inherits fields and methods of the `superclass`. 
+  
 * We group the "inheritance concept" into two categories:
 
-  * **base class** (parent) - the class being inherited from
+  * **base class** (parent) - the class `being inherited` from
 
-  * **derived class** (child) - the class that inherits from another class
+  * **derived class** (child) - the class that `inherits` from another class
 
     ![Inheritance](./assets/Inheritance.png)
 
     
 
-* To inherit from a class, use the `:` symbol.
+* To `inherit` from a class, use the `:` symbol.
 
   > ``` c++
   > // Base class 
@@ -203,7 +200,7 @@
 
 ### 																																					Polymorphism
 
-* Polymorphism means "many forms", and it occurs when we have many classes that are related to each other by inheritance.
+* `Polymorphism` means "many forms", and it occurs when we have `many classes` that are `related` to each other by inheritance.
 
 > ```c++
 > //Compile Time Polymorphism
@@ -277,13 +274,11 @@
 
 ### 																																Identifiers
 
-- Names can contain letters, digits and underscores
-- Names must begin with a letter or an underscore (_)
-- Names are case sensitive (`myVar` and `myvar` are different variables)
+- Names can contain letters, digits and underscores.
+- Names must begin with a letter or an underscore (_).
+- Names are case sensitive (`myVar` and `myvar` are different variables).
 - Names cannot contain whitespaces or special characters like !, #, %, etc.
-- Reserved words (like C++ keywords, such as `int`) cannot be used as names
+- Reserved words (like C++ keywords, such as `int`) cannot be used as names.
 
-
-
-
+---
 
