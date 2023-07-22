@@ -3,6 +3,8 @@
 ## Build System
 
 ### 1. Overview
+This is the overview of system build
+![10](/documents/ESP32/assets/build_system_overview.png "This is the overview of system build" )
 
 - An ESP-IDF project can be seen as an amalgamation of a number of components
 - **ESP-IDF** makes these `components` explicit and configurable.To do that, when a project is compiled, the build system will look up `all the components` in the ESP-IDF directories, the project directories and (optionally) in additional custom component directories.
@@ -30,6 +32,7 @@ myProject/
 │   ├── CMakeLists.txt
 │   ├── src1.c
 │   └── src2.c
+│   └── Kconfig.projbuild
 └── build/
 
 ```
@@ -99,10 +102,27 @@ idf_component_register(SRCS "src1.c"
 In CMake terms, `REQUIRES` & `PRIV_REQUIRES` are approximate wrappers around the CMake functions `target_link_libraries(... PUBLIC ...)` and `target_link_libraries(... PRIVATE ...)`.
 ### 3. Configuration File
 
-- `Kconfig`
-- `menuconfig`
-- `Kconfig.projbuild`
-- `project_include.cmake`
+#### Kconfig
+Including configuration options for components
+Example:
+```Python
+menu "This is a memnuconfig for component"
+    # some commands to control
+endmenu
+```
+Result:
+<img src="./assets/config_component.png" alt="config_component.png" style="zoom:80%;" />
+
+#### Kconfig.projbuild
+ Including configuration options at the top level of menuconfig.\
+Example:
+```Python
+menu "This is a memnuconfig for main"
+    # some commands to control
+endmenu
+```
+Result:
+<img src="./assets/Config_main.png" alt="Config_main.png" style="zoom:80%;" />
 
 ## RTOS
 
