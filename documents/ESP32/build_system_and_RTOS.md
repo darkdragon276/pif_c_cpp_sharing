@@ -11,29 +11,33 @@
 
 ```
 myProject/
-  |-- build/
-  |-- sdkconfig
-  |-- Makefile
-  |-- components/
-  |     |-- component1/
-  |     |     |-- component.mk
-  |     |     |-- Kconfig
-  |     |     |-- src1.c
-  |     |-- component2/
-  |     |     |-- component.mk
-  |     |     |-- Kconfig
-  |     |     |-- src1.c
-  |-- main/
-        |-- src1.c
-        |-- src2.c
-        |-- Makefile
+├── CMakeLists.txt
+├── sdkconfig
+├── components/
+│   ├── component1/
+│   │   ├── CMakeLists.txt
+│   │   ├── Kconfig
+│   │   ├── src1.c
+│   │   └── include/
+│   │       └── component1.h
+│   ├── component2/
+│   │   ├── CMakeLists.txt
+│   │   ├── Kconfig
+│   │   ├── src2.c
+│   │   └── include/
+│   │       └── component2.h
+├── main/
+│   ├── CMakeLists.txt
+│   ├── src1.c
+│   └── src2.c
+└── build/
 
 ```
 
 As you can see, a project has a `components/` subdirectory that includes `components` contained in one or more directories and `source files` for the project (default is `main`). After compilation, the project will include a `build` directory that contains all the objects, compiled libraries, and the final output binary file.
 
 - `sdkconfig` project configuration file. This file is created/updated when `idf.py menuconfig` runs
-- Component directories each contain a component `Makefile` file, and ít called `component.mk`
+- Component directories each contain a component `CMakeLists.txt` file
 - Each component may also include a `Kconfig` file defining the **component configuration** options that can be set via `menuconfig`
 - Some components may also include `Kconfig.projbuild` and `project_include.cmake` files
 
@@ -41,16 +45,58 @@ As you can see, a project has a `components/` subdirectory that includes `compon
 
 #### Project CMakeLists File
 
+A top-level project CMakeLists.txt file
+
 - Minimal project:
   > ```C
   > cmake_minimum_required(VERSION 3.16)
   > include($ENV{IDF_PATH}/tools/cmake/project.cmake)
   > project(myProject)
   > ```
-- Optional Project Variables
+
+Optional Project Variables:
+
+- `COMPONENT_DIRS`: Directories to search for components.
+- `EXTRA_COMPONENT_DIRS`: An optional list of additional directories to search for components.
+- `COMPONENTS`: A list of component names to build into the project.
+
+To set these variables, use the cmake set command ie `set(VARIABLE "VALUE")`.
+The `set()` commands should be placed after the `cmake_minimum(...)` line but before the `include(...)` line.
+
+Example:
+
+```C
+cmake_minimum_required(VERSION 3.16)
+include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+
+set(EXTRA_COMPONENT_DIRS ${CMAKE_CURRENT_LIST_DIR}/component1 ${CMAKE_CURRENT_LIST_DIR}/component2)
+
+project(myProject)
+
+```
 
 #### Component CMakeLists Files
+- Minimal Component CMakeLists:
+```C
+idf_component_register(SRCS source_files...
+                       INCLUDE_DIRS include_directories...
+                       REQUIRES required_components...
+                       PRIV_REQUIRES private_required_components...)
+```
+* `SRCS` is a list of source files (`*.c`, `*.cpp`, `*.cc`, `*.S`). These source files will be compiled into the component library.
 
+* `INCLUDE_DIRS` is a list of directories to add to the global include search path for any component which requires this component, and also the main source files.
+* `REQUIRES` gives the list of components required by the public interface of this component.
+* `PRIV_REQUIRES` gives the list of components required by the private interface of this component.
+
+Example:
+```c
+//component 1
+idf_component_register(SRCS "src1.c"
+                       INCLUDE_DIRS "include")
+```
+**Note**
+In CMake terms, `REQUIRES` & `PRIV_REQUIRES` are approximate wrappers around the CMake functions `target_link_libraries(... PUBLIC ...)` and `target_link_libraries(... PRIVATE ...)`.
 ### 3. Configuration File
 
 - `Kconfig`
