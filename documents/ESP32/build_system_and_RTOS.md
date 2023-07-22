@@ -4,6 +4,7 @@
 
 ### 1. Overview
 This is the overview of system build
+
 ![10](/documents/ESP32/assets/build_system_overview.png "This is the overview of system build" )
 
 - An ESP-IDF project can be seen as an amalgamation of a number of components
