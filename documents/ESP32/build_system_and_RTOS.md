@@ -12,14 +12,14 @@ This is the overview of system build
 
 * A simple project looks like this:
 
-```
+```C
 myProject/
-├── CMakeLists.txt
-├── sdkconfig
+├── CMakeLists.txt   //*
+├── sdkconfig       //Created/updated when `idf.py menuconfig` run
 ├── components/
 │   ├── component1/
 │   │   ├── CMakeLists.txt
-│   │   ├── Kconfig
+│   │   ├── Kconfig           //File defining the component configuration options
 │   │   ├── src1.c
 │   │   └── include/
 │   │       └── component1.h
@@ -29,21 +29,71 @@ myProject/
 │   │   ├── src2.c
 │   │   └── include/
 │   │       └── component2.h
-├── main/
+├── main/           //*
 │   ├── CMakeLists.txt
 │   ├── src1.c
 │   └── src2.c
-│   └── Kconfig.projbuild
-└── build/
+└── build/     //*Contains all the objects, compiled libraries, and the final output binary file.
 
 ```
+**INSTALL ESP-IDF**
+- `Windown`
 
-As you can see, a project has a `components/` subdirectory that includes `components` contained in one or more directories and `source files` for the project (default is `main`). After compilation, the project will include a `build` directory that contains all the objects, compiled libraries, and the final output binary file.
+Step1: Download one of ESP-IDF Tools Installers\
+ [Windows Installer Download](https://dl.espressif.com/dl/esp-idf/?idf=4.4).
 
-- `sdkconfig` project configuration file. This file is created/updated when `idf.py menuconfig` runs
-- Component directories each contain a component `CMakeLists.txt` file
-- Each component may also include a `Kconfig` file defining the **component configuration** options that can be set via `menuconfig`
-- Some components may also include `Kconfig.projbuild` and `project_include.cmake` files
+Step2: Launching ESP-IDF Environment.
+At the end of the installation process you can check out option `Run ESP-IDF PowerShell Environment` or `Run ESP-IDF Command Prompt (cmd.exe)`
+
+`Run ESP-IDF PowerShell Environment`:
+<img src="./assets/esp-idf-installer-screenshot-powershell.png" alt="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF PowerShell Environment" title="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF PowerShell Environment" style="width: 70%; height: auto;">
+<br>
+<img src="./assets/esp-idf-installer-powershell.png" alt="ESP-IDF PowerShell" title="ESP-IDF PowerShell" style="width: 70%; height: auto;">
+
+`Run ESP-IDF Command Prompt (cmd.exe)`:
+<img src="./assets/esp-idf-installer-screenshot.png" alt="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF Command Prompt (cmd.exe)" title="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF Command Prompt (cmd.exe)" style="width: 70%; height: auto;">
+<br>
+<img src="./assets/esp-idf-installer-command-prompt.png" alt="ESP-IDF Command Prompt" title="ESP-IDF Command Prompt" style="width: 70%; height: auto;">
+
+* `Ubuntu`
+
+**Step1**: Install Prerequisites
+Run command below
+```
+sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+```
+**Step2**: Get ESP-IDF\
+To build applications for the ESP32, you need the software libraries provided by Espressif in [ESP-IDF repository](https://github.com/espressif/esp-idf ).\
+Open Terminal, and run the following commands:
+```
+mkdir -p ~/esp
+cd ~/esp
+git clone --recursive https://github.com/espressif/esp-idf.git
+```
+**Step 3**. Set up the Tools
+```
+cd ~/esp/esp-idf
+./install.sh esp32
+```
+**Step 4**. Set up the Environment Variables
+Open the shell configuration file `.bashrc `
+```
+nano ~/.bashrc
+```
+Scroll down to the end of the file and copy and paste the alias command below:
+```
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+
+```
+Save and exit the text editor by pressing **Ctrl + X**, then press **Y** to confirm saving changes, and **Enter** to set the file name.\
+After that, run this command to apply change
+```
+source ~/.bashrc
+```
+**Step5**: Almost done\
+Now you can run the `get_idf` command in any terminal to set up or refresh the ESP-IDF environment.
+
+
 
 ### 2. Using MakeFile
 
