@@ -178,8 +178,8 @@ Result:
 - The original FreeRTOS( Vanilla FreeRTOS) only supports **single core**. In order to use it for **dual core**, we need to use `ESP-IDF FreeRTOS`, which is based on Vanilla FreeRTOS v10.4.3.
 
 **Original FreeRTOS( Vanilla FreeRTOS)**
-- Process of scheduling.\
-<br>
+- Process of scheduling.
+
 ![Alt text](./assets/RTOS_running.png "RTOS process")
 
   - Function
