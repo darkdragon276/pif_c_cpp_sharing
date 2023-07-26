@@ -133,18 +133,12 @@ project(myProject)
 
 #### Component CMakeLists Files
 - Minimal Component CMakeLists:
-```C
-idf_component_register(SRCS source_files...
-                       INCLUDE_DIRS include_directories...
-                       REQUIRES required_components...
-                       PRIV_REQUIRES private_required_components...)
+```Python
+idf_component_register(SRCS source_files... # List of source files (`*.c`, `*.cpp`, `*.cc`, `*.S`)
+                       INCLUDE_DIRS include_directories... # List of directories to add to the global include
+                       REQUIRES required_components... # Required by the public interface
+                       PRIV_REQUIRES private_required_components...)# Required by the private interface
 ```
-* `SRCS` is a list of source files (`*.c`, `*.cpp`, `*.cc`, `*.S`). These source files will be compiled into the component library.
-
-* `INCLUDE_DIRS` is a list of directories to add to the global include search path for any component which requires this component, and also the main source files.
-* `REQUIRES` gives the list of components required by the public interface of this component.
-* `PRIV_REQUIRES` gives the list of components required by the private interface of this component.
-
 Example:
 ```Python
 #component 1
@@ -160,7 +154,7 @@ Including configuration options for components
 Example:
 ```Python
 menu "This is a memnuconfig for component"
-    # some commands to control
+    # Some commands to control
 endmenu
 ```
 Result:
@@ -171,7 +165,7 @@ Result:
 Example:
 ```Python
 menu "This is a memnuconfig for main"
-    # some commands to control
+    # Some commands to control
 endmenu
 ```
 Result:
@@ -182,6 +176,51 @@ Result:
 ### 1. Overview
 
 - The original FreeRTOS( Vanilla FreeRTOS) only supports **single core**. In order to use it for **dual core**, we need to use `ESP-IDF FreeRTOS`, which is based on Vanilla FreeRTOS v10.4.3.
+
+**Original FreeRTOS( Vanilla FreeRTOS)**
+- Process of scheduling.\
+<br>
+![Alt text](./assets/RTOS_running.png "RTOS process")
+
+  - Function
+
+
+
+- Queue\
+<br>
+![Alt text](./assets/queue.png "QUEUE")\
+![Alt text](./assets/queue_process.png "QUEUE process")
+
+  - Function of queue
+    ```C
+    xQueueCreate(size_t queueLength, size_t itemSize);  // Create a Queue
+    xQueueSend(QueueHandle_t xQueue, const void *pvItemToQueue, TickType_t xTicksToWait); // Send data to a queue
+    xQueueReceive(QueueHandle_t xQueue, void *pvBuffer, TickType_t xTicksToWait);// Receive data to a queue
+    vQueueDelete(QueueHandle_t xQueue); // Delete a Queue
+    ```
+
+
+- Semaphore/Mutex
+  - Semaphore.
+
+    The purpose of using Semaphore is to ensure **synchronization** and manage **shared resources** among tasks in a multitasking system.
+    ![Alt text](./assets/Semaphore_src.png "Semaphore process")
+
+    - The **Binary semaphore** can be seen as a flag with only two values, 0 and 1, accessible by multiple tasks.
+    - When a task signals, it sets the semaphore to 1, while a task waiting will wait until the semaphore becomes 1. Once it becomes 1, the waiting task will reset the semaphore and perform a certain operation.
+    - The **Counting Semaphore** which is a type of semaphore that allows more than two processes to access the shared resource at the same time.
+
+    ![Alt text](./assets/Semaphore.png "Semaphore process")
+
+  - Mutex
+  <br>
+  ![Alt text](./assets/Mutex.png "Mutex process")
+  ![Alt text](./assets/rtos-mutex.png "Mutex process")
+
+
+
+
+
 
 ### 2. Symmetric Multiprocessing(SMP)
 
