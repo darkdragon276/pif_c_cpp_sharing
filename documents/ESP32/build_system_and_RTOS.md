@@ -3,9 +3,10 @@
 ## Build System
 
 ### 1. Overview
+
 This is the overview of system build
 
-![10](/documents/ESP32/assets/build_system_overview.png "This is the overview of system build" )
+![10](/documents/ESP32/assets/build_system_overview.png "This is the overview of system build")
 
 - An ESP-IDF project can be seen as an amalgamation of a number of components
 - **ESP-IDF** makes these `components` explicit and configurable.To do that, when a project is compiled, the build system will look up `all the components` in the ESP-IDF directories, the project directories and (optionally) in additional custom component directories.
@@ -36,7 +37,9 @@ myProject/
 └── build/     //*Contains all the objects, compiled libraries, and the final output binary file.
 
 ```
+
 **INSTALL ESP-IDF**
+
 - `Windown`
 
 Step1: Download one of ESP-IDF Tools Installers\
@@ -57,45 +60,55 @@ At the end of the installation process you can check out option `Run ESP-IDF Pow
 <br>
 <img src="./assets/esp-idf-installer-command-prompt.png" alt="ESP-IDF Command Prompt" title="ESP-IDF Command Prompt" style="width: 70%; height: auto;">
 
-* `Ubuntu`
+- `Ubuntu`
 
 **Step1**: Install Prerequisites
 Run command below
+
 ```
 sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
 ```
+
 **Step2**: Get ESP-IDF\
-To build applications for the ESP32, you need the software libraries provided by Espressif in [ESP-IDF repository](https://github.com/espressif/esp-idf ).\
+To build applications for the ESP32, you need the software libraries provided by Espressif in [ESP-IDF repository](https://github.com/espressif/esp-idf).\
 Open Terminal, and run the following commands:
+
 ```
 mkdir -p ~/esp
 cd ~/esp
 git clone --recursive https://github.com/espressif/esp-idf.git
 ```
+
 **Step 3**. Set up the Tools
+
 ```
 cd ~/esp/esp-idf
 ./install.sh esp32
 ```
+
 **Step 4**. Set up the Environment Variables
 Open the shell configuration file `.bashrc `
+
 ```
 nano ~/.bashrc
 ```
+
 Scroll down to the end of the file and copy and paste the alias command below:
+
 ```
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 
 ```
+
 Save and exit the text editor by pressing **Ctrl + X**, then press **Y** to confirm saving changes, and **Enter** to set the file name.\
 After that, run this command to apply change
+
 ```
 source ~/.bashrc
 ```
+
 **Step5**: Almost done\
 Now you can run the `get_idf` command in any terminal to set up or refresh the ESP-IDF environment.
-
-
 
 ### 2. Using MakeFile
 
@@ -132,42 +145,55 @@ project(myProject)
 ```
 
 #### Component CMakeLists Files
+
 - Minimal Component CMakeLists:
+
 ```Python
 idf_component_register(SRCS source_files... # List of source files (`*.c`, `*.cpp`, `*.cc`, `*.S`)
                        INCLUDE_DIRS include_directories... # List of directories to add to the global include
                        REQUIRES required_components... # Required by the public interface
                        PRIV_REQUIRES private_required_components...)# Required by the private interface
 ```
+
 Example:
+
 ```Python
 #component 1
 idf_component_register(SRCS "src1.c"
                        INCLUDE_DIRS "include")
 ```
+
 **Note**
 In CMake terms, `REQUIRES` & `PRIV_REQUIRES` are approximate wrappers around the CMake functions `target_link_libraries(... PUBLIC ...)` and `target_link_libraries(... PRIVATE ...)`.
+
 ### 3. Configuration File
 
 #### Kconfig
+
 Including configuration options for components
 Example:
+
 ```Python
 menu "This is a memnuconfig for component"
     # Some commands to control
 endmenu
 ```
+
 Result:
 <img src="./assets/config_component.png" alt="config_component.png" style="zoom:80%;" />
 
 #### Kconfig.projbuild
- Including configuration options at the top level of menuconfig.\
+
+Including configuration options at the top level of menuconfig.
+
 Example:
+
 ```Python
 menu "This is a memnuconfig for main"
     # Some commands to control
 endmenu
 ```
+
 Result:
 <img src="./assets/Config_main.png" alt="Config_main.png" style="zoom:80%;" />
 
@@ -178,18 +204,22 @@ Result:
 - The original FreeRTOS( Vanilla FreeRTOS) only supports **single core**. In order to use it for **dual core**, we need to use `ESP-IDF FreeRTOS`, which is based on Vanilla FreeRTOS v10.4.3.
 
 **Original FreeRTOS( Vanilla FreeRTOS)**
+
 - Process of scheduling.
+  RTOS: Specifically designed for real-time systems, where the timing of task execution is deterministic. RTOS programs ensure that critical tasks are completed within their deadlines.\
+  By switching back and forth between tasks, it gives us the feeling that tasks are **running concurrently**, even though only one task runs at a time.
 
-![Alt text](./assets/RTOS_running.png "RTOS process")
+  ![Alt text](./assets/RTOS_running.png "RTOS process")
 
-  - Function
+- Queue
 
+   The queue is similar to a sized FIFO buffer
 
+  ![Alt text](./assets/queue.png "QUEUE")
 
-- Queue\
-<br>
-![Alt text](./assets/queue.png "QUEUE")\
-![Alt text](./assets/queue_process.png "QUEUE process")
+  Data can be placed into a queue by one task and removed from the queue by another task, allowing tasks to communicate with each other without the risk of race conditions or data corruption.
+
+  ![Alt text](./assets/queue_process.png "QUEUE process")
 
   - Function of queue
     ```C
@@ -199,11 +229,12 @@ Result:
     vQueueDelete(QueueHandle_t xQueue); // Delete a Queue
     ```
 
-
 - Semaphore/Mutex
+
   - Semaphore.
 
     The purpose of using Semaphore is to ensure **synchronization** and manage **shared resources** among tasks in a multitasking system.
+
     ![Alt text](./assets/Semaphore_src.png "Semaphore process")
 
     - The **Binary semaphore** can be seen as a flag with only two values, 0 and 1, accessible by multiple tasks.
@@ -213,14 +244,23 @@ Result:
     ![Alt text](./assets/Semaphore.png "Semaphore process")
 
   - Mutex
-  <br>
-  ![Alt text](./assets/Mutex.png "Mutex process")
-  ![Alt text](./assets/rtos-mutex.png "Mutex process")
+    Mutexes are **binary semaphores** that include a priority inheritance mechanism.
 
+    ![Alt text](./assets/Mutex.png "Mutex process")
 
+  -  A Mutex is typically used when a critical section of code or a shared resource must be accessed atomically (in an indivisible manner) to maintain data integrity and consistency.
 
+      ![Alt text](./assets/rtos-mutex.png "Mutex process")
 
+  - Function of Semaphore/Mutex
 
+    ```C
+    xSemaphoreCreateBinary(void);  // Create a Semaphore Binary
+    xSemaphoreCreateCounting(UBaseType_t uxMaxCount, UBaseType_t uxInitialCount); // Create a Semaphore Counting
+    xSemaphoreCreateMutex(void); // Create a Mutex
+    xSemaphoreTake(SemaphoreHandle_t xSemaphore, TickType_t xTicksToWait); // Used to request (take) a semaphore in an RTOS.
+    xSemaphoreGive(SemaphoreHandle_t xSemaphore); // Used to release (give) a Semaphore/Mutex
+    ```
 
 ### 2. Symmetric Multiprocessing(SMP)
 
