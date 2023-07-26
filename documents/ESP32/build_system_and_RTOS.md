@@ -46,11 +46,13 @@ Step2: Launching ESP-IDF Environment.
 At the end of the installation process you can check out option `Run ESP-IDF PowerShell Environment` or `Run ESP-IDF Command Prompt (cmd.exe)`
 
 `Run ESP-IDF PowerShell Environment`:
+
 <img src="./assets/esp-idf-installer-screenshot-powershell.png" alt="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF PowerShell Environment" title="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF PowerShell Environment" style="width: 70%; height: auto;">
 <br>
 <img src="./assets/esp-idf-installer-powershell.png" alt="ESP-IDF PowerShell" title="ESP-IDF PowerShell" style="width: 70%; height: auto;">
 
 `Run ESP-IDF Command Prompt (cmd.exe)`:
+
 <img src="./assets/esp-idf-installer-screenshot.png" alt="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF Command Prompt (cmd.exe)" title="Completing the ESP-IDF Tools Setup Wizard with Run ESP-IDF Command Prompt (cmd.exe)" style="width: 70%; height: auto;">
 <br>
 <img src="./assets/esp-idf-installer-command-prompt.png" alt="ESP-IDF Command Prompt" title="ESP-IDF Command Prompt" style="width: 70%; height: auto;">
@@ -144,8 +146,8 @@ idf_component_register(SRCS source_files...
 * `PRIV_REQUIRES` gives the list of components required by the private interface of this component.
 
 Example:
-```c
-//component 1
+```Python
+#component 1
 idf_component_register(SRCS "src1.c"
                        INCLUDE_DIRS "include")
 ```
