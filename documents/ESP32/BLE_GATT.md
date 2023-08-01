@@ -67,7 +67,7 @@ After Device A (smartphone) discovers Device B (temperature sensor) through the 
 
   - Link Layer advertising package include Gap package.
     <br>
-    
+
   ![Alt text](./assets/ble_gap_ll_pk.png)
 
 In short:
@@ -199,3 +199,60 @@ void configure_scan_response_data() {
 This packages are transmitted by advertiser (if we config scaner in Active mode)
 
 # Generic Attribute Profile (GATT)
+
+## The Attribute Protocol (ATT)
+
+### Attributes
+
+As we discussed in the previous section, the server holds resources to which a client needs to have access. These data are stored as attributes on the BLE server.
+
+An attribute is a data representation format which is composed of four fields:
+
+- The attribute type, defined by a UUID.
+- The attribute handle, which is an unsigned number unique for the attribute.
+- The attribute permissions, which control if the client can read or modify a resource.
+- The attribute value
+
+### Attribute methods
+
+The ATT protocol also defines methods by which attributes can be read or written.
+The methods supported are six and consequentially they define six Protocol Data Units (PDU)
+
+These six methods and their PDU types are:
+
+* Commands: Sent to a server by a client and do not invoke a response
+Requests: Sent to a server by a client and invoke a response
+
+* Responses: Sent to a client by a server when a request is received.
+
+* Notifications: Sent to a client by a server without invoking a response. They are sent without the client requesting them.
+
+* Indications: Sent to a client by a server and they invoke a response. They are sent without the client requesting them.
+
+* Confirmations: Sent to a server by a client as an acknowledgment to an indication.
+
+## The Generic Attribute Profile (GATT)
+
+### Profiles
+
+GATT uses the ATT protocol to define how to **access resources** on a BLE server.
+ypical device use cases or types have been standardized into separate _profiles_, and each profile represents a specific type of device or application.
+
+![Alt text](./assets/gatt_profile.png)
+
+### Services
+
+Profiles contain services, which describe a particular function that the server supports.Services are categorized in two types:
+
+* Primary services, which expose the main functionality of the device. Primary services can be discovered using the Primary Service Discovery procedure.
+
+* Secondary services, which are intended for auxiliary functionality.
+
+Each service can have one or more _characteristics_, and each service distinguishes itself from other services by means of a unique numeric _ID (UUID)_.
+
+![Alt text](./assets/ble_att_overview.jpg)
+### Characteristics
+
+
+
+
