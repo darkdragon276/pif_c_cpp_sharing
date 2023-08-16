@@ -236,7 +236,7 @@ Requests: Sent to a server by a client and invoke a response
 ### Profiles
 
 GATT uses the ATT protocol to define how to **access resources** on a BLE server.
-ypical device use cases or types have been standardized into separate _profiles_, and each profile represents a specific type of device or application.
+tipical device use cases or types have been standardized into separate _profiles_, and each profile represents a specific type of device or application.
 
 ![Alt text](./assets/gatt_profile.png)
 
