@@ -253,6 +253,24 @@ Each service can have one or more _characteristics_, and each service distinguis
 ![Alt text](./assets/ble_att_overview.jpg)
 ### Characteristics
 
+Characteristics as groups of information called attributes. Attributes are the information actually transferred between devices. Characteristics organize and use attributes as data values, properties, and configuration information. A typical characteristic is composed of the following attributes.
+* **Characteristic Value**: Data value of the characteristic
+      
+* **Characteristic Declaration**: Descriptor storing the properties, location, and type of the characteristic value
+
+* **Client Characteristic Configuration**: A configuration that allows the GATT server to configure the characteristic to be notified (send message asynchronously) or indicated (send message asynchronously with acknowledgment)
+* **Characteristic User Description**: An ASCII string describing the characteristic
+
+These attributes are stored in the GATT server in an attribute table. The following properties are associated with each attribute.
+
+* **Handle**: The index of the attribute in the table (Every attribute has a unique handle.)
+
+* **Type**: Indicates what the attribute data represents (referred to as a UUID [universal unique identifier]. Some of these are Bluetooth SIG-defined and some are custom.)
+
+* **Permissions**: Enforces if and how a GATT client device can access the value of an attribute
+
+
+
 
 
 
