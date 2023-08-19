@@ -269,6 +269,52 @@ These attributes are stored in the GATT server in an attribute table. The follow
 
 * **Permissions**: Enforces if and how a GATT client device can access the value of an attribute
 
+### GATT Server
+As a GATT server, most of the GATT functionality is handled by the individual GATT profile. These profiles use the GATTServApp.
+![Alt text](./assets/ble_gatt_server.png)
+
+A GATT service is a collection of characteristics. Multiple services can be grouped together to form a profile.
+
+![Alt text](image.png)
+For ESP32
+In this example, each profile is composed by:
+
+* GATT interface
+* Application ID
+* Connection ID
+* Service handle
+* Service ID
+* Characteristic handle
+* Characteristic UUID
+* Attribute permissions
+* Characteristic properties
+* Client Characteristic Configuration descriptor handle
+* Client Characteristic Configuration descriptor UUID
+
+This profile was designed to have one service and one characteristic. And that the characteristic has one descriptor.
+
+The service has a handle and an ID, in the same manner that each characteristic has a handle, an UUID, attribute permissions and properties.
+
+If the characteristic supports notifications or indications, it must implement a Client Characteristic Configuration descriptor (CCCD). which is an additional attribute that describes if the notifications or indications are enabled and defines how the characteristic may be configured by a specific client. This descriptor also has a handle and an UUID.
+
+The structure implementation is:
+```C
+struct gatts_profile_inst {
+    esp_gatts_cb_t gatts_cb;
+    uint16_t gatts_if;
+    uint16_t app_id;
+    uint16_t conn_id;
+    uint16_t service_handle;
+    esp_gatt_srvc_id_t service_id;
+    uint16_t char_handle;
+    esp_bt_uuid_t char_uuid;
+    esp_gatt_perm_t perm;
+    esp_gatt_char_prop_t property;
+    uint16_t descr_handle;
+    esp_bt_uuid_t descr_uuid;
+};
+```
+
 
 
 
