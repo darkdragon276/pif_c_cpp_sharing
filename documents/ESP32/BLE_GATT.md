@@ -220,16 +220,16 @@ The methods supported are six and consequentially they define six Protocol Data 
 
 These six methods and their PDU types are:
 
-* Commands: Sent to a server by a client and do not invoke a response
-Requests: Sent to a server by a client and invoke a response
+- Commands: Sent to a server by a client and do not invoke a response
+  Requests: Sent to a server by a client and invoke a response
 
-* Responses: Sent to a client by a server when a request is received.
+- Responses: Sent to a client by a server when a request is received.
 
-* Notifications: Sent to a client by a server without invoking a response. They are sent without the client requesting them.
+- Notifications: Sent to a client by a server without invoking a response. They are sent without the client requesting them.
 
-* Indications: Sent to a client by a server and they invoke a response. They are sent without the client requesting them.
+- Indications: Sent to a client by a server and they invoke a response. They are sent without the client requesting them.
 
-* Confirmations: Sent to a server by a client as an acknowledgment to an indication.
+- Confirmations: Sent to a server by a client as an acknowledgment to an indication.
 
 ## The Generic Attribute Profile (GATT)
 
@@ -244,32 +244,34 @@ tipical device use cases or types have been standardized into separate _profiles
 
 Profiles contain services, which describe a particular function that the server supports.Services are categorized in two types:
 
-* Primary services, which expose the main functionality of the device. Primary services can be discovered using the Primary Service Discovery procedure.
+- Primary services, which expose the main functionality of the device. Primary services can be discovered using the Primary Service Discovery procedure.
 
-* Secondary services, which are intended for auxiliary functionality.
+- Secondary services, which are intended for auxiliary functionality.
 
 Each service can have one or more _characteristics_, and each service distinguishes itself from other services by means of a unique numeric _ID (UUID)_.
 
 ![Alt text](./assets/ble_att_overview.jpg)
+
 ### Characteristics
 
 Characteristics as groups of information called attributes. Attributes are the information actually transferred between devices. Characteristics organize and use attributes as data values, properties, and configuration information. A typical characteristic is composed of the following attributes.
-* **Characteristic Value**: Data value of the characteristic
-      
-* **Characteristic Declaration**: Descriptor storing the properties, location, and type of the characteristic value
 
-* **Client Characteristic Configuration**: A configuration that allows the GATT server to configure the characteristic to be notified (send message asynchronously) or indicated (send message asynchronously with acknowledgment)
-* **Characteristic User Description**: An ASCII string describing the characteristic
+- **Characteristic Value**: Data value of the characteristic
+- **Characteristic Declaration**: Descriptor storing the properties, location, and type of the characteristic value
+
+- **Client Characteristic Configuration**: A configuration that allows the GATT server to configure the characteristic to be notified (send message asynchronously) or indicated (send message asynchronously with acknowledgment)
+- **Characteristic User Description**: An ASCII string describing the characteristic
 
 These attributes are stored in the GATT server in an attribute table. The following properties are associated with each attribute.
 
-* **Handle**: The index of the attribute in the table (Every attribute has a unique handle.)
+- **Handle**: The index of the attribute in the table (Every attribute has a unique handle.)
 
-* **Type**: Indicates what the attribute data represents (referred to as a UUID [universal unique identifier]. Some of these are Bluetooth SIG-defined and some are custom.)
+- **Type**: Indicates what the attribute data represents (referred to as a UUID [universal unique identifier]. Some of these are Bluetooth SIG-defined and some are custom.)
 
-* **Permissions**: Enforces if and how a GATT client device can access the value of an attribute
+- **Permissions**: Enforces if and how a GATT client device can access the value of an attribute
 
 ### GATT Server
+
 As a GATT server, most of the GATT functionality is handled by the individual GATT profile. These profiles use the GATTServApp.
 ![Alt text](./assets/ble_gatt_server.png)
 
@@ -279,17 +281,17 @@ A GATT service is a collection of characteristics. Multiple services can be grou
 For ESP32
 In this example, each profile is composed by:
 
-* GATT interface
-* Application ID
-* Connection ID
-* Service handle
-* Service ID
-* Characteristic handle
-* Characteristic UUID
-* Attribute permissions
-* Characteristic properties
-* Client Characteristic Configuration descriptor handle
-* Client Characteristic Configuration descriptor UUID
+- GATT interface
+- Application ID
+- Connection ID
+- Service handle
+- Service ID
+- Characteristic handle
+- Characteristic UUID
+- Attribute permissions
+- Characteristic properties
+- Client Characteristic Configuration descriptor handle
+- Client Characteristic Configuration descriptor UUID
 
 This profile was designed to have one service and one characteristic. And that the characteristic has one descriptor.
 
@@ -297,26 +299,47 @@ The service has a handle and an ID, in the same manner that each characteristic 
 
 If the characteristic supports notifications or indications, it must implement a Client Characteristic Configuration descriptor (CCCD). which is an additional attribute that describes if the notifications or indications are enabled and defines how the characteristic may be configured by a specific client. This descriptor also has a handle and an UUID.
 
-The structure implementation is:
-```C
-struct gatts_profile_inst {
-    esp_gatts_cb_t gatts_cb;
-    uint16_t gatts_if;
-    uint16_t app_id;
-    uint16_t conn_id;
-    uint16_t service_handle;
-    esp_gatt_srvc_id_t service_id;
-    uint16_t char_handle;
-    esp_bt_uuid_t char_uuid;
-    esp_gatt_perm_t perm;
-    esp_gatt_char_prop_t property;
-    uint16_t descr_handle;
-    esp_bt_uuid_t descr_uuid;
-};
-```
+In order to register a GATT profile in your BLE application:
 
+1. Creating struct of GATT profile
 
+   The structure implementation is:
 
+   ```C
+   struct gatts_profile_inst {
+       esp_gatts_cb_t gatts_cb;
+       uint16_t gatts_if;
+       uint16_t app_id;
+       uint16_t conn_id;
+       uint16_t service_handle;   // Service handle
+       esp_gatt_srvc_id_t service_id; // Service UUID
+       uint16_t char_handle;     // Characteristic handle
+       esp_bt_uuid_t char_uuid;  // Characteristic UUID
+       esp_gatt_perm_t perm;
+       esp_gatt_char_prop_t property;
+       uint16_t descr_handle;
+       esp_bt_uuid_t descr_uuid;
+   };
+   ```
 
+2. Register App Profile with App ID
 
+   ```C
+   esp_err_t esp_ble_gatts_app_register(uint16_t app_id);
+   ```
 
+3. Creating a Service
+
+   ```C
+   esp_err_t esp_ble_gatts_create_service(esp_gatt_if_t gatts_if, esp_gatt_srvc_id_t *service_id, uint16_t num_handle)
+   ```
+
+4. Start a service and add characteristic
+
+   ```c
+   esp_err_t esp_ble_gatts_start_service(uint16_t service_handle)
+   ```
+
+   ```C
+   esp_err_t esp_ble_gatts_add_char(uint16_t service_handle, esp_bt_uuid_t *char_uuid, esp_gatt_perm_t perm, esp_gatt_char_prop_t property, esp_attr_value_t *char_val, esp_attr_control_t *control)
+   ```
